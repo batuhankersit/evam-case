@@ -1,20 +1,23 @@
 import { Modal, Button } from "react-bootstrap";
+//burda react-bootstrap kullandım çünkü normal bootstrapta modal için gerekli olan dosyaları
+// import edemedim, search ettiğimde boostrapin jquery desteğini kestiği ile ilgili bir çok farklı yazı gördüm
+// ve react-bootstrap kullanılması gerektiği yazılmıştı o yüzden sadece bu işlemde react-bootstrap kullanıldı.
 import React, {FC, useState} from "react";
-import {IForm} from "./FormList";
 import {setItemOnStorage} from "../helpers";
+import {IForm} from "../models/form.model";
 
 interface Props {
   setFormList:(val:IForm[]) => void;
   formList:IForm[]
 }
 
-const initialFormValues = {
+export const initialFormValues = {
   name:'',
   firstName:'',
   lastName:'',
   description:'',
   createdAt:'',
-  age:0,
+  age:undefined,
 } as IForm
 
 export const CreateNewForm:FC<Props> = ({setFormList,formList}) => {
@@ -25,8 +28,8 @@ export const CreateNewForm:FC<Props> = ({setFormList,formList}) => {
 
   const onHandleSubmit = (e:React.SyntheticEvent) => {
     e.preventDefault()
-    const date = new Date()
-    const newValue = [...formList,{...formItems,createdAt:date.toDateString()}]
+    const date = new Date().toISOString().slice(0, 10);
+    const newValue = [...formList,{...formItems,createdAt:date}]
     setFormList(newValue)
     setItemOnStorage('data',newValue)
     setFormItems(initialFormValues)
@@ -73,7 +76,7 @@ export const CreateNewForm:FC<Props> = ({setFormList,formList}) => {
               </div>
               <div className="col-md-12 mb-3">
                 <label htmlFor="age">Age</label>
-                <input min={1} value={formItems.age} onChange={(e) => onValueChange('age',e.target.value)} type="number" className="form-control" id="age" placeholder="Age"
+                <input value={formItems.age} onChange={(e) => onValueChange('age',e.target.value)} type="number" className="form-control" id="age" placeholder="Age"
                        />
               </div>
             </div>

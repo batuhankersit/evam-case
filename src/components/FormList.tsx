@@ -1,13 +1,6 @@
 import {FC, useEffect, useState} from "react";
-
-export interface IForm {
-  name:string;
-  firstName:string;
-  lastName:string;
-  description:string;
-  createdAt:string;
-  age:number;
-}
+import Link from "next/link";
+import {IForm} from "../models/form.model";
 
 interface Props {
   searchText:string;
@@ -21,7 +14,7 @@ export const FormList:FC<Props> = ({searchText,formList}) => {
     const timeout = setTimeout(() => {
       const filteredList =
         formList.filter((x:IForm) => x?.name?.toLocaleLowerCase()
-        .includes(searchText?.toLocaleLowerCase() || ''))
+        .includes(searchText?.toLocaleLowerCase()))
 
         setFilteredFormList(filteredList)
     }, 500)
@@ -37,9 +30,10 @@ export const FormList:FC<Props> = ({searchText,formList}) => {
           <th scope="col">Form Name</th>
           <th scope="col">Description</th>
           <th scope="col">Created Date</th>
-          <th scope="col">FirstName</th>
-          <th scope="col">LastName</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
           <th scope="col">Age</th>
+          <th scope="col">Detail</th>
         </tr>
         </thead>
         <tbody>
@@ -53,6 +47,11 @@ export const FormList:FC<Props> = ({searchText,formList}) => {
               <td>{item?.firstName}</td>
               <td>{item?.lastName}</td>
               <td>{item?.age}</td>
+              <td>
+                <Link href={`/forms/${item?.name}`}>
+                  Details
+                </Link>
+              </td>
             </tr>
           )
         })}
