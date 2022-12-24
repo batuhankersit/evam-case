@@ -44,11 +44,11 @@ export const CreateNewForm:FC<Props> = ({setFormList,formList}) => {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Create New Form
+        Yeni Form Oluştur
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create New Form</Modal.Title>
+          <Modal.Title>Yeni Form Oluştur</Modal.Title>
         </Modal.Header>
         <form onSubmit={onHandleSubmit} className={"w-100"}>
         <Modal.Body>
@@ -83,10 +83,10 @@ export const CreateNewForm:FC<Props> = ({setFormList,formList}) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Vazgeç
           </Button>
           <Button type={"submit"} variant="primary">
-           Submit
+           Kaydet
           </Button>
         </Modal.Footer>
         </form>
